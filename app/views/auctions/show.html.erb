@@ -1,11 +1,7 @@
 <div id="auction">
   <h2><%= @auction.description %></h2>
   <div style="float:left" id="nice">
-  <p><b>Current Price:</b> <%= number_to_currency @auction.current_price %><br>
-    <b>Total Bids:</b> <%= number_with_delimiter @auction.total_bids %><br>
-    <b>Status:</b> <%= status(@auction.status) %><br>
-    <%= link_to "View Auction", @auction.url %><br>
-  </p>
+  <p id="auction_summary"><%= render :partial => "summary", :locals => {:auction => @auction} %></p>
   </div>
 
   <div style="float:right; width:50%">
@@ -43,14 +39,8 @@
         <th>Total Bids</th>
         <th>Last Bid Time</th>
       </thead>
-      <tbody>
-        <% @most_active_bidders.each do |bidder| %>
-        <tr>
-          <td><%= bidder.username %></td>
-          <td><%= bidder.total_bids %></td>
-          <td><%= format_time(bidder.bid_time) %></td>
-        </tr>
-        <% end %>          
+      <tbody id="most_active_bidders">
+        <%= render :partial => "most_active_bidders", :collection => @most_active_bidders %>
       </tbody>
     </table>
   </div>
@@ -63,29 +53,8 @@
         <th>Total Bids</th>
         <th>Last Bid Time</th>
       </thead>
-      <% @last_active_bidders.each do |last| %>
-        <tr>
-          <td><%= last.username %></td>
-          <td><%= last.total_bids %></td>
-          <td><%= format_time(last.bid_time) %></td>
-        </tr>      
-      <% end %>
-      <tbody>
-        <!-- <tr>
-          <td>Joker4life</td>
-          <td>500</td>
-          <td>Now</td>
-        </tr>
-        <tr>
-          <td>Joker4life</td>
-          <td>500</td>
-          <td>Now</td>
-        </tr>
-        <tr>
-          <td>Joker4life</td>
-          <td>500</td>
-          <td>Now</td>
-        </tr>    -->         
+      <tbody id="last_active_bidders">
+        <%= render :partial => "last_active_bidders", :collection => @last_active_bidders %>    
       </tbody>
     </table>
   </div>

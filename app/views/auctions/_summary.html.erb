@@ -1,0 +1,4 @@
+<b>Current Price:</b> <%= number_to_currency auction.current_price %><br>
+<b>Total Bids:</b> <%= number_with_delimiter auction.total_bids %><br>
+<b>Status:</b> <%= status(auction.status) %><br>
+<%= link_to "View Auction", auction.url %><br>

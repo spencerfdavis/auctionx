@@ -7,12 +7,11 @@ class AuctionsController < ApplicationController
     @scheduled = Auction.scheduled
     @active = Auction.active
     @completed = Auction.completed
-    #@auctions = Auction.all
 
-    # respond_to do |format|
-    #   format.html # index.html.erb
-    #   format.json { render json: @auctions }
-    # end
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @auctions }
+    end
   end
 
   # GET /auctions/1
@@ -24,6 +23,7 @@ class AuctionsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
+      format.js      
       format.json { render json: @auction }
     end
   end

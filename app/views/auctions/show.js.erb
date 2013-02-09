@@ -1,0 +1,7 @@
+var topBidders = "<%= escape_javascript(render :partial => 'most_active_bidders', :collection => @most_active_bidders) %>";
+var lastBidders = "<%= escape_javascript(render :partial => 'last_active_bidders', :collection => @last_active_bidders) %>";
+var auctionSummary = "<%= escape_javascript(render :partial => 'summary', :locals => {:auction => @auction}) %>";
+
+$("#most_active_bidders").html(topBidders);
+$("#last_active_bidders").html(lastBidders);
+$("#auction_summary").html(auctionSummary);
