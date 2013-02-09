@@ -3,6 +3,7 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $(document).ready ->  
-  setInterval (->
-    $.getScript(location.pathname)
-  ), 10000
+  unless $("#auction_status").text() is "Completed"
+    setInterval (->
+      $.getScript(location.pathname)
+    ), 10000
