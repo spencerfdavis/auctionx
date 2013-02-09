@@ -3,10 +3,10 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 #$(document).ready ->  
-setInterval (->
-  $("#auction").load location.pathname
+#setInterval (->
+#  $("#auction").load location.pathname
   #$("#last_updated").effect("highlight", {color: "green"}, 100)
-), 10000
+#), 10000
 
 #pingAfter = 10000
 # refreshId = setInterval(->

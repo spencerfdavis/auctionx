@@ -6,7 +6,8 @@ class AuctionsController < ApplicationController
   def index
     @scheduled = Auction.scheduled
     @active = Auction.active
-    @auctions = Auction.all
+    @completed = Auction.completed
+    #@auctions = Auction.all
 
     # respond_to do |format|
     #   format.html # index.html.erb
