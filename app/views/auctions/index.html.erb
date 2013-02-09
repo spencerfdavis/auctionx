@@ -1,0 +1,39 @@
+<h1>Auctions</h1><br>
+
+<h4>Active</h4>
+<% if @active.blank? %>
+<p>No Active Auctions</p>
+<% else %>
+<table class="table table-bordered table-striped table-condensed">
+  <thead><tr>
+    <th>Description</th>    
+    <th>URL</th>
+    <th>Max bids</th>
+    <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @active %>
+  </tbody>
+</table><br>
+<% end %>
+
+<h4>Scheduled</h4>
+<% if @scheduled.blank? %>
+<p>No Scheduled Auctions</p>
+<% else %>
+<table class="table table-bordered table-striped table-condensed">
+  <thead><tr>
+    <th>Description</th>    
+    <th>URL</th>
+    <th>Max bids</th>
+    <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @scheduled %>
+  </tbody>
+</table><br>
+<% end %>
+
+<%= link_to 'New Auction', new_auction_path, :class => "btn btn-primary" %>
