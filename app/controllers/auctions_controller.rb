@@ -1,16 +1,14 @@
 class AuctionsController < ApplicationController
   before_filter :authenticate_user!
   
-  # GET /auctions
-  # GET /auctions.json
   def index
-    @scheduled = Auction.scheduled
-    @active = Auction.active
-    @completed = Auction.completed
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @auctions }
+    if params[:filter]
+      @results = Auction.send params[:filter].to_sym
+      render :action => "filtered"
+    else
+      @scheduled = Auction.scheduled
+      @active = Auction.active
+      @completed = Auction.completed  
     end
   end
 

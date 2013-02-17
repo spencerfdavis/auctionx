@@ -9,13 +9,14 @@ class Auction < ActiveRecord::Base
   
   LIMIT = 5
   
-  scope :scheduled, lambda{ where(status: SCHEDULED)}
-  scope :active, lambda{ where(status: ACTIVE)}  
-  scope :cancelled, lambda{ where(status: CANCELLED)}
-  scope :completed, lambda{ where(status: COMPLETED)}
+  scope :scheduled, lambda{ where(status: SCHEDULED).limit(LIMIT)}
+  scope :active, lambda{ where(status: ACTIVE).limit(LIMIT)}  
+  scope :cancelled, lambda{ where(status: CANCELLED).limit(LIMIT)}
+  scope :completed, lambda{ where(status: COMPLETED).limit(LIMIT)}
   
   before_create :parse_auction_id, :set_description
   after_create :spawn_auction_process
+  after_destroy :kill_watcher_process
   
   def current_price
     bids.last.nil? ? "N/A" : bids.last.price
@@ -24,17 +25,26 @@ class Auction < ActiveRecord::Base
   def total_bids
     bids.count
   end
-  
+
   def last_active_bidders
-    bids.select("DISTINCT(bidder_id), bidders.username, count(*) as total_bids, bid_time").order("bids.id desc").group("bidder_id").joins(:bidder).limit(LIMIT)
+    bids.select("distinct(bidder_id), bidders.username, count(*) as total_bids, MAX(bid_time) as latest_bid").
+         group("bidder_id").
+         joins(:bidder).
+         order("MAX(bid_time) desc").limit(LIMIT)
   end
-  
+
   def most_active_bidders
-    bids.select("DISTINCT(bidder_id), bidders.username, count(*) as total_bids, bid_time").order("total_bids desc").group("bidder_id").joins(:bidder).limit(LIMIT)    
-    #bids.order("count_all DESC").joins(:bidder).limit(LIMIT).count(:group=>"bidders.username")
+    bids.select("DISTINCT(bidder_id), bidders.username, count(*) as total_bids, MAX(bid_time) as latest_bid").
+         order("total_bids desc").
+         group("bidder_id").
+         joins(:bidder).limit(LIMIT)
   end
   
-  private
+private
+  def kill_watcher_process
+    system "kill -9 #{process_id}"
+  end
+
   def parse_auction_id
     self.site_id = url.scan(/auction_id=(\d*)/).flatten.first
   end
@@ -50,7 +60,5 @@ class Auction < ActiveRecord::Base
     Process.detach pid
     self.process_id = pid
     self.save
-    puts "\n\n\n FETCH"
   end
-  
 end

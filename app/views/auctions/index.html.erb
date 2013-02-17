@@ -1,57 +1,62 @@
 <h1>Auctions</h1><br>
 
-<h4>Active</h4>
-<% if @active.blank? %>
-<p>No Active Auctions</p>
-<% else %>
-<table class="table table-bordered table-striped table-condensed">
-  <thead><tr>
-    <th>Description</th>    
-    <th>URL</th>
-    <th>Max bids</th>
-    <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render @active %>
-  </tbody>
-</table><br>
-<% end %>
-
 <h4>Scheduled</h4>
 <% if @scheduled.blank? %>
-<p>No Scheduled Auctions</p>
+  <p>No Scheduled Auctions</p><br>
 <% else %>
-<table class="table table-bordered table-striped table-condensed">
-  <thead><tr>
-    <th>Description</th>    
-    <th>URL</th>
-    <th>Max bids</th>
-    <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render @scheduled %>
-  </tbody>
-</table><br>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead><tr>
+      <th>Description</th>    
+      <th>URL</th>
+      <th>Total Bids</th>
+      <th>Price</th>
+      <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @scheduled %>
+    </tbody>
+  </table>
+  <p><%= link_to "View All Scheduled", root_url %></p><br>
+<% end %>
+
+<h4>Active</h4>
+<% if @active.blank? %>
+  <p>No Active Auctions</p><br>
+<% else %>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead><tr>
+      <th>Description</th>    
+      <th>URL</th>
+      <th>Total Bids</th>
+      <th>Price</th>
+      <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @active %>
+    </tbody>
+  </table>
+  <p><%= link_to "View All Active", root_url %></p><br>
 <% end %>
 
 <h4>Completed</h4>
 <% if @completed.blank? %>
-<p>No Completed Auctions</p>
+  <p>No Completed Auctions</p>
 <% else %>
-<table class="table table-bordered table-striped table-condensed">
-  <thead><tr>
-    <th>Description</th>    
-    <th>URL</th>
-    <th>Max bids</th>
-    <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render @completed %>
-  </tbody>
-</table><br>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead><tr>
+      <th>Description</th>    
+      <th>URL</th>
+      <th>Total Bids</th>
+      <th>Price</th>
+      <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @completed %>
+    </tbody>
+  </table>
+  <p><%= link_to "View All Completed", root_url %></p><br>
 <% end %>
-
 <%= link_to 'New Auction', new_auction_path, :class => "btn btn-primary" %>

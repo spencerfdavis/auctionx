@@ -37,6 +37,7 @@ class DealDash
       price, time, username, action = history[0].to_f, Time.parse(history[1]), history[2], history[3]
       bidder = Bidder.find_or_create_by_username(username)
       last_entry = Bid.where(:auction_id => auction_id).last
+      time = Time.parse("#{time}")+1.hour
       
       if last_entry.nil?
         puts "Last Entry Nil boy"
